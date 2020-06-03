@@ -2,7 +2,7 @@ import Knex from 'knex';
 
 export async function up(knex: Knex) {
     // Criar a tabela
-    return  knex.schema.createTable('collect_point_liaison', table => {
+    return knex.schema.createTable('collect_point_liaison', table => {
         table.increments('id').primary();
         table.integer('collect_point_id').notNullable()
             .references('id')

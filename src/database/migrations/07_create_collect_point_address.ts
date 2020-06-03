@@ -2,11 +2,11 @@ import Knex from 'knex';
 
 export async function up(knex: Knex) {
     // Criar a tabela
-    return  knex.schema.createTable('colletc_point_address', table => {
+    return  knex.schema.createTable('collect_point_address', table => {
         table.increments('id').primary();
-        table.integer('colletct_point_id').notNullable()
+        table.integer('collect_point_id').notNullable()
             .references('id')
-            .inTable('colletct_points');
+            .inTable('collect_point');
 
         table.integer('address_id').notNullable()
             .references('id')
@@ -16,5 +16,5 @@ export async function up(knex: Knex) {
 
 export async function down(knex: Knex) {
     // Rollback
-    return knex.schema.dropTable('colletc_point_address');
+    return knex.schema.dropTable('collect_point_address');
 }

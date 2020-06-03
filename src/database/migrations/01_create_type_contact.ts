@@ -6,12 +6,10 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
         table.integer('code').notNullable();
         table.string('description').notNullable();
-
     })
-
 }
 
 export async function down(knex: Knex) {
     // Rollback
-    return knex.schema.dropTable('contact');
+    return knex.schema.dropTable('type_contact');
 }

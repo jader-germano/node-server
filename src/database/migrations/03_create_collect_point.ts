@@ -6,8 +6,12 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
         table.string('image').notNullable();
         table.string('name').notNullable();
-        table.integer('contact_id').references('id').inTable('contact');
-        table.integer('address_id').references('id').inTable('address');
+        table.integer('contact_id').notNullable()
+            .references('id')
+            .inTable('contact');
+        table.integer('address_id').notNullable()
+            .references('id')
+            .inTable('address');
     })
 
 }

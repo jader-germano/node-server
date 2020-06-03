@@ -6,17 +6,11 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
         table.string('image').notNullable();
         table.string('name').notNullable();
-        table.integer('contact_id').notNullable()
-            .references('id')
-            .inTable('contact');
-        table.integer('address_id').notNullable()
-            .references('id')
-            .inTable('address');
     })
 
 }
 
 export async function down(knex: Knex) {
     // Rollback
-    return  knex.schema.dropTable('collect_point');
+    return knex.schema.dropTable('collect_point');
 }

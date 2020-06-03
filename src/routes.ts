@@ -25,7 +25,10 @@ routes.post('/collect-point', async (request, response) => {
         items,
     } = request.body;
     knex('collect-point').insert({
-
+        name,
+        address,
+        contact,
+        items,
     })
     return response.json()
 })

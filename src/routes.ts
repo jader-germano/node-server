@@ -6,12 +6,9 @@ const routes = express.Router();
 const colletPointController = new ColletPointController();
 const itemController = new ItemController();
 
-routes.get('/items', itemController.list)
-
-routes.post('/collect-point', colletPointController.creatte)
+routes.get('/items', itemController.index)
+routes.post('/collect-point', colletPointController.create)
+routes.get('/collect-point', colletPointController.index)
+routes.get('/collect-point/:id', colletPointController.show)
 
 export default routes;
-
-// Migrations = Histórico de BD
-
-// Create table

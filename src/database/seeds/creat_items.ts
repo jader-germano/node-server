@@ -8,12 +8,5 @@ export async function seed(knex: Knex) {
         { title: 'Resíduos Eletrônicos', image: 'eletronicos.svg' },
         { title: 'Resíduos Orgânicos', image: 'organicos.svg' },
         { title: 'Óleo de Cozinha', image: 'oleo.svg' },
-    ])
-
-    await knex('type_liaison').insert([
-        { code: 0, description: 'phone' },
-        { code: 1, description: 'whatsapp' },
-        { code: 2, description: 'email' },
-
-    ])
+    ]);
 }

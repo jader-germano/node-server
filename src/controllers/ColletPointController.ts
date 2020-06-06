@@ -14,13 +14,11 @@ class ColletPointController {
 
             const collectPoints = await trx('collect_point')
                 .join('collect_point_item', 'collect_point.id', '=', 'collect_point_item.collect_point_id')
-                .join('collect_point_liaison', 'collect_point.id', '=', 'collect_point_liaison.collect_point_id')
-                .join('liaison', 'liaison.id', '=', 'collect_point_liaison.liaison_id')
 
                 .whereIn('item_id', parsedItems).or
                 .where('collect_point.uf', String(uf)).or
                 .where('collect_point.city', String(city))
-                .distinct().select('collect_point.*').select('liaison.*')
+                .distinct().select('collect_point.*')
             await trx.commit();
             return response.status(200).json(collectPoints).end();
         } catch (error) {
@@ -32,17 +30,21 @@ class ColletPointController {
     async create(request: Request, response: Response) {
         try {
             const {
-                name, latitude,
+                name,
+                whatsapp,
+                email,
+                latitude,
                 longitude,
                 city,
                 uf,
-                liaison,
                 items
             } = request.body;
             const trx = await knex.transaction();
             const collect_point = {
                 image: 'image-fake',
                 name,
+                whatsapp,
+                email,
                 latitude,
                 longitude,
                 city,
@@ -52,10 +54,6 @@ class ColletPointController {
             const point_id = await trx('collect_point')
                 .insert(collect_point, 'id');
 
-            // Gravar liaison
-            const liaison_ids = await trx('liaison')
-                .insert(liaison, 'id');
-
             // Criação objetos relacionais item -> collect_point
             const collectPoint_item = items.map((id: number) => {
                 return {
@@ -64,23 +62,13 @@ class ColletPointController {
                 }
             })
 
-            // Criação objetos relacionais liaison_ids -> collect_point
-            const collectPoint_liaison = liaison_ids.map((id: number) => {
-                return {
-                    liaison_id: id,
-                    collect_point_id: point_id[0]
-                }
-            })
-
             // Gravar objetos relacionais
             await trx('collect_point_item').insert(collectPoint_item)
-            await trx('collect_point_liaison').insert(collectPoint_liaison)
 
             await trx.commit();
             return response.status(200).json({
                 id: point_id[0],
                 ...collect_point,
-                liaison
             }).end();
         } catch (error) {
             console.log(error)
@@ -98,16 +86,9 @@ class ColletPointController {
                 .join('collect_point_item', 'item.id', '=', 'collect_point_item.item_id')
                 .where('collect_point_item.collect_point_id', id);
 
-            const address = await trx('address')
-                .join('collect_point_address', 'address.id', '=', 'collect_point_address.address_id')
-                .where('collect_point_address.collect_point_id', id);
-
-            const liaison = await trx('liaison')
-                .join('collect_point_liaison', 'liaison.id', '=', 'collect_point_liaison.liaison_id')
-                .where('collect_point_liaison.collect_point_id', id);
             await trx.commit();
 
-            return collectPoints ? response.status(200).json({ collectPoints, items, address, liaison }).end() :
+            return collectPoints ? response.status(200).json({ collectPoints, items }).end() :
                 response.status(400).json({ message: 'Collect Point not found.' }).end();
         } catch (error) {
             console.log(error)

@@ -6,6 +6,10 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
         table.string('image').notNullable();
         table.string('name').notNullable();
+        table.decimal('latitude').notNullable();
+        table.decimal('longitude').notNullable();
+        table.string('city').notNullable();
+        table.string('uf').notNullable();
     })
 
 }

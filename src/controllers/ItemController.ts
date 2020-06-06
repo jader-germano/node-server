@@ -12,7 +12,6 @@ class ItemController {
                     id: item.id,
                     title: item.title,
                     image_url: `http://localhost:3333/uploads/${ item.image }`,
-
                 }
             })
             return response.json(serializedItems).status(200).end();

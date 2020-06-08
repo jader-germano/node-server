@@ -14,8 +14,8 @@ class ColletPointController {
             const collectPoints = await trx('collect_point')
                 .join('collect_point_item', 'collect_point.id', '=', 'collect_point_item.collect_point_id')
 
-                .whereIn('item_id', parsedItems).or
-                .where('collect_point.uf', String(uf)).or
+                .whereIn('item_id', parsedItems)
+                .where('collect_point.uf', String(uf))
                 .where('collect_point.city', String(city))
                 .distinct().select('collect_point.*')
 
@@ -36,7 +36,7 @@ class ColletPointController {
                 .json(error)
                 .end();
         }
-    };
+    }
 
     async create(request: Request, response: Response) {
         try {
@@ -92,7 +92,7 @@ class ColletPointController {
                 .json(error)
                 .end();
         }
-    };
+    }
 
     async show(request: Request, response: Response) {
         try {
@@ -135,7 +135,7 @@ class ColletPointController {
                 .json(error)
                 .end();
         }
-    };
+    }
 }
 
 export default ColletPointController;

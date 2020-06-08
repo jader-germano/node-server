@@ -18,7 +18,6 @@ class ItemController {
                 .status(200)
                 .end();
         } catch (error) {
-            console.log(error)
             return response.status(500)
                 .json(error)
                 .end();

@@ -31,7 +31,6 @@ class ColletPointController {
                 .json(serializedPoints)
                 .end();
         } catch (error) {
-            console.log(error)
             return response
                 .status(500)
                 .json(error)
@@ -88,7 +87,6 @@ class ColletPointController {
                     ...collect_point,
                 }).end();
         } catch (error) {
-            console.log(error)
             return response
                 .status(500)
                 .json(error)
@@ -132,7 +130,6 @@ class ColletPointController {
                 })
                 .end();
         } catch (error) {
-            console.log(error)
             return response
                 .status(500)
                 .json(error)

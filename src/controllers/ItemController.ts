@@ -11,13 +11,17 @@ class ItemController {
                 return {
                     id: item.id,
                     title: item.title,
-                    image_url: `http://localhost:3333/uploads/${ item.image }`,
+                    image_url: `http://192.168.11.6:3333/uploads/${item.image}`,
                 }
             })
-            return response.json(serializedItems).status(200).end();
+            return response.json(serializedItems)
+                .status(200)
+                .end();
         } catch (error) {
             console.log(error)
-            return response.status(500).json(error).end();
+            return response.status(500)
+                .json(error)
+                .end();
         }
     }
 

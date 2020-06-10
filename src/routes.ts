@@ -13,7 +13,7 @@ const upload = multer(multerConfig);
 const colletPointController = new ColletPointController();
 const itemController = new ItemController();
 
-routes.get('/items', itemController.index)
+routes.post('/items', itemController.index)
 
 routes.get('/collect-point', colletPointController.index)
 routes.get('/collect-point/:id', colletPointController.show)

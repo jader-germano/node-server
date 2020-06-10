@@ -8,7 +8,7 @@ require('dotenv');
 const app = express();
 
 const MY_PORT = process.env.PORT;
-const MY_APP_SECRET = process.env.APP_SECRET;
+/*const MY_APP_SECRET = process.env.APP_SECRET;*/
 
 app.use(cors({
     /*  origin: 'www'*/

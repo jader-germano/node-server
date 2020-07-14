@@ -25,7 +25,7 @@ class ColletPointController {
                     image_url: `http://192.168.11.6:3333/uploads/${point.image}`,
                 }
             })
-            await trx.commit();
+            trx.commit();
             return response
                 .status(200)
                 .json(serializedPoints)
@@ -77,9 +77,9 @@ class ColletPointController {
                 })
 
             // Gravar objetos relacionais
-            await trx('collect_point_item').insert(collectPoint_item)
+            trx('collect_point_item').insert(collectPoint_item)
 
-            await trx.commit();
+            trx.commit();
             return response
                 .status(200)
                 .json({
@@ -120,7 +120,7 @@ class ColletPointController {
                 .where('collect_point_item.collect_point_id', id)
                 .select('item.title');
 
-            await trx.commit();
+            trx.commit();
 
             return response
                 .status(200)
